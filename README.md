@@ -1,10 +1,10 @@
-# styletabs
+# restyl
 
 By Jiang Tao Hong
 
 ## What is it for
 
-Draw inspiration from many different styles by keeping tabs on them with styletabs.
+Share and draw inspiration from different fashion styles.
 
 ## node dependencies
 
