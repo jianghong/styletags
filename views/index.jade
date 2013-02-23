@@ -1,5 +1,11 @@
 extends layout
 
-block content
-  h1= title
-  p Welcome to #{title}
+block content	
+
+	div#container
+		- if (images && images.length) 
+			- images.forEach(function (image) {
+			a(href=image.url)
+				img(class='image', src=cloudinary.url(image.public_id + '.' + image.format, 
+					{ width: 500, height: 500, crop: 'limit', version:image.version }))
+			- })
