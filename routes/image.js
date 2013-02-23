@@ -11,6 +11,7 @@ cloudinary.config({
 
 
 var TAGS;
+
 cloudinary.api.tags(function (result){
 	TAGS = result.tags;
 }, {max_results: 20});
