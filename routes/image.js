@@ -14,7 +14,7 @@ var TAGS;
 
 cloudinary.api.tags(function (result){
 	TAGS = result.tags;
-}, {max_results: 100});
+}, {max_results: 20});
 
 exports.load = function(req, res) {
 	cloudinary.api.resources(function (result) {
@@ -38,7 +38,7 @@ exports.upload = function(req, res) {
 		cloudStream = cloudinary.uploader.upload_stream(function (result) {
 			cloudinary.api.tags(function (result){
 				TAGS = result.tags;
-			}, {max_results: 100});
+			});
 			res.redirect('/');
 		}, { tags: tags});
 
