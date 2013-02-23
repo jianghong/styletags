@@ -12,3 +12,10 @@ Share and draw inspiration from different fashion styles.
 * mongoose
 * cloudinary
 * jade
+
+## other requirements
+
+* jquery
+* lightbox2
+* jquery infinite scroll
+* jquery masonry

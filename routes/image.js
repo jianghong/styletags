@@ -9,11 +9,37 @@ cloudinary.config({
 	api_secret: 'Z2AkQAvabdBETVF7rN3ew4apmcI'
 });
 
+
+
+
+var TAGS;
+cloudinary.api.tags(function (result){
+	TAGS = result.tags;
+});
+
+exports.load = function(req, res) {
+	cloudinary.api.resources(function (result) {
+		res.render('index', {next: result.next_cursor, tags: TAGS, images: result.resources,
+			cloudinary: cloudinary, title:"style#tags"});
+	}, { next_cursor: req.params.next });
+};
+
+exports.load_by_tag = function(req, res) {
+	var tag = req.params.tag;
+	cloudinary.api.resources_by_tag(tag, function (result) {
+		res.render('index', {next: result.next_cursor, tags: TAGS, images: result.resources,
+			cloudinary: cloudinary, title:"#" + tag, tag: tag});
+	}, { next_cursor: req.params.next });
+};
+
 exports.upload = function(req, res) {
 	var tags = req.body.tags;
 	console.log(tags);
 	var imageStream = fs.createReadStream(req.files.image.path, { encoding: 'binary'}),
 		cloudStream = cloudinary.uploader.upload_stream(function (result) {
+			cloudinary.api.tags(function (result){
+				TAGS = result.tags;
+			});
 			res.redirect('/');
 		}, { tags: tags});
 
@@ -22,7 +48,15 @@ exports.upload = function(req, res) {
 
 exports.index = function(req, res) {
 	cloudinary.api.resources(function (items) {
-		res.render('index', { images : items.resources, cloudinary: cloudinary,
-			title: "style#tags" });
+		res.render('index', { next: items.next_cursor, tags: TAGS, images : items.resources,
+		cloudinary: cloudinary, title: "style#tags"});
+	});
+};
+
+exports.show = function(req, res) {
+	var tag = req.params.tag;
+	cloudinary.api.resources_by_tag(tag, function (items) {
+		res.render('index', { next: items.next_cursor, tags: TAGS, images: items.resources,
+		cloudinary: cloudinary, title: "#" + tag, tag: tag});
 	});
 };

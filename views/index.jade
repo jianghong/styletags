@@ -1,11 +1,17 @@
 extends layout
 
-block content	
-
+block content
 	div#container
 		- if (images && images.length) 
 			- images.forEach(function (image) {
-			a(href=image.url)
+			a(class='imlink', rel='lightbox[all]', href=image.url)
 				img(class='image', src=cloudinary.url(image.public_id + '.' + image.format, 
 					{ width: 500, height: 500, crop: 'limit', version:image.version }))
 			- })
+	nav#page-nav
+		- if (next)
+			- if (title !== "style#tags") 
+				a(href='/load/' + tag + "/" + next)
+			- else
+				a(href='/load/' + next)
+	div.loadmore

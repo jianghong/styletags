@@ -8,7 +8,6 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
-  , tag = require('./routes/tag')
   , image = require('./routes/image');
 
 var app = express();
@@ -31,10 +30,10 @@ app.configure('development', function(){
 
 app.get('/', image.index);
 app.get('/users', user.list);
-app.get('/tags', tag.tags);
 app.get('/:tag', image.show);
-app.post('/addtag', tag.addTag);
 app.post('/upload', image.upload);
+app.get('/load/:next', image.load);
+app.get('/load/:tag/:next', image.load_by_tag);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

@@ -12,3 +12,14 @@ a {
 	float: left;
 	margin: 10px;
 }
+
+
+li {
+	list-style-type: none;
+	display: inline;
+	padding: 10px;
+}
+
+.loadmore {
+	text-align: center
+}
