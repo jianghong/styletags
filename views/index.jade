@@ -11,7 +11,7 @@ block content
 	nav#page-nav
 		- if (next)
 			- if (title !== "style#tags") 
-				a(href='/load/' + tag + "/" + next)
+				a(href='/load/' + tag + "/" + next) next
 			- else
-				a(href='/load/' + next)
+				a(href='/load/' + next) next
 	div.loadmore

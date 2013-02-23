@@ -20,7 +20,7 @@ exports.load = function(req, res) {
 	cloudinary.api.resources(function (result) {
 		res.render('index', {next: result.next_cursor, tags: TAGS, images: result.resources,
 			cloudinary: cloudinary, title:"style#tags"});
-	}, { next_cursor: req.params.next });
+	}, { next_cursor: req.params.next }, {max_results: 20});
 };
 
 exports.load_by_tag = function(req, res) {
@@ -28,7 +28,7 @@ exports.load_by_tag = function(req, res) {
 	cloudinary.api.resources_by_tag(tag, function (result) {
 		res.render('index', {next: result.next_cursor, tags: TAGS, images: result.resources,
 			cloudinary: cloudinary, title:"#" + tag, tag: tag});
-	}, { next_cursor: req.params.next });
+	}, { max_result:20, next_cursor: req.params.next });
 };
 
 exports.upload = function(req, res) {
@@ -49,7 +49,7 @@ exports.index = function(req, res) {
 	cloudinary.api.resources(function (items) {
 		res.render('index', { next: items.next_cursor, tags: TAGS, images : items.resources,
 		cloudinary: cloudinary, title: "style#tags"});
-	});
+	}, {max_results: 20});
 };
 
 exports.show = function(req, res) {
@@ -57,5 +57,5 @@ exports.show = function(req, res) {
 	cloudinary.api.resources_by_tag(tag, function (items) {
 		res.render('index', { next: items.next_cursor, tags: TAGS, images: items.resources,
 		cloudinary: cloudinary, title: "#" + tag, tag: tag});
-	});
+	}, {max_results: 20});
 };
