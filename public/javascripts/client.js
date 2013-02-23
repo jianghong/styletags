@@ -15,7 +15,8 @@ $(document).ready(function () {
 		loading: {
 			finishedMsg: 'No more images to load.',
 			img: '/images/loading.gif',
-			selector: '.loadmore'
+			selector: '.loadmore',
+			msgText: 'Loading the next set of images...'
 		},
 		prefill: true
 	},
