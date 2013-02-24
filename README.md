@@ -19,3 +19,4 @@ Share and draw inspiration from different fashion styles.
 * lightbox2
 * jquery infinite scroll
 * jquery masonry
+* foundation

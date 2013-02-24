@@ -9,22 +9,19 @@ a {
 }
 
 .image {
-	float: left;
-	margin: 5px;
 	border-radius: 5px;
+	margin: 5px;
+	float: left;
 }
-
 
 li {
 	list-style-type: none;
-	display: inline;
-	padding: 10px;
 }
 
 .loadmore {
-	text-align: center
+	text-align: center;
 }
 
-.centered {
-	margin: 0 auto;
+.row {
+	width: 100%;
 }

@@ -3,31 +3,32 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/lightbox.css')
+    link(rel='stylesheet', href='/stylesheets/foundation.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     h1 
       a(href='/') style#tags
     form(action='/upload', method='post', enctype='multipart/form-data')
       label * Upload an image (.jpg, .png, .gif) via url: 
-      input(type='url', placeholder='http://i.imgur.com/rG5C1a1h.jpg', name='urlimage',
-        size=60)
-      br
-      label * Or from your computer: 
+      input(type='url', placeholder='http://i.imgur.com/rG5C1a1h.jpg', name='urlimage')
+      label * Or from your device: 
       input(type='file', name='image')
       br
+      br
       label * tags(at least one) are comma seperated:
-      input(required, size=100, placeholder='navy, blazer, cotton, uniqlo', type='text',
+      input(required, placeholder='navy, blazer, cotton, uniqlo', type='text',
         name='tags')
       input(type='submit', value='upload')
-    div#tags
-      p recent tags: 
-      ul 
-        - if (tags && tags.length) 
-          - tags.forEach(function (tag) {
-            a(href='/' + tag)
-              li= "#" + tag
-          - })
-    block content
+    div.row
+      div#tags.one.columns
+        p recent tags: 
+        ul 
+          - if (tags && tags.length) 
+            - tags.forEach(function (tag) {
+              a(href='/' + tag)
+                li= "#" + tag
+            - })
+      block content
     script(type='text/javascript', src='/javascripts/jquery-1.7.2.min.js')
     script(type='text/javascript', src='/javascripts/lightbox.js')  
     script(type='text/javascript', src='/javascripts/jquery.masonry.min.js')

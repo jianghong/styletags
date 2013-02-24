@@ -1,14 +1,13 @@
 extends layout
 
 block content
-	div#container.centered
+	div#container.eleven.columns
 		- if (images && images.length) 
 			- images.forEach(function (image) {
 			a(class='imlink', rel='lightbox[all]', href=image.url)
 				div.imgbox
 					img(class='image', src=cloudinary.url(image.public_id + '.' + image.format, 
-						{ width: 500, height: 500, crop: 'limit', version:image.version }))
-					
+						{ width: 300, height: 300, crop: 'fill', version:image.version }))
 			- })
 	nav#page-nav
 		- if (next)
