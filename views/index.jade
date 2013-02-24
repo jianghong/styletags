@@ -1,7 +1,7 @@
 extends layout
 
 block content
-	div#container.eleven.columns
+	div#container.ten.columns
 		- if (images && images.length) 
 			- images.forEach(function (image) {
 			a(class='imlink', rel='lightbox[all]', href=image.url)
@@ -15,4 +15,3 @@ block content
 				a(href='/load/' + tag + "/" + next) next
 			- else
 				a(href='/load/' + next) next
-	div.loadmore
