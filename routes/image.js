@@ -33,20 +33,30 @@ exports.load_by_tag = function(req, res) {
 
 exports.upload = function(req, res) {
 	var tags = req.body.tags;
-	console.log(tags);
-	var imageStream = fs.createReadStream(req.files.image.path, { encoding: 'binary'}),
-		cloudStream = cloudinary.uploader.upload_stream(function (result) {
-			cloudinary.api.tags(function (result){
-				TAGS = result.tags;
-			}, { max_results: 100 });
-			res.redirect('/');
-		}, { tags: tags});
+	// file was uploaded, handle uploading
+	if (req.body.image){
+		var imageStream = fs.createReadStream(req.files.image.path, { encoding: 'binary'}),
+			cloudStream = cloudinary.uploader.upload_stream(function (result) {
+				cloudinary.api.tags(function (result){
+					TAGS = result.tags;
+				}, { max_results: 100 });
+				res.redirect('/');
+			}, { tags: tags});
 
-	imageStream.on('data', cloudStream.write).on('end', cloudStream.end);
+		imageStream.on('data', cloudStream.write).on('end', cloudStream.end);
+	} else { // handle url fetch
+		cloudinary.uploader.upload(req.body.urlimage, function(result) {
+			cloudinary.api.tags(function (result) {
+				TAGS = result.tags;
+			}, {max_results: 100});
+			res.redirect('/');
+		}, {tags: tags});
+	}
 };
 
 exports.index = function(req, res) {
 	cloudinary.api.resources(function (items) {
+		console.log(items);
 		res.render('index', { next: items.next_cursor, tags: TAGS, images : items.resources,
 		cloudinary: cloudinary, title: "style#tags"});
 	}, {max_results: 30});
