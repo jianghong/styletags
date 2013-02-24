@@ -56,7 +56,7 @@ exports.upload = function(req, res) {
 
 exports.index = function(req, res) {
 	cloudinary.api.resources(function (items) {
-		console.log(items);
+		console.log("Rate limit remaining: " + items.rate_limit_remaining);
 		res.render('index', { next: items.next_cursor, tags: TAGS, images : items.resources,
 		cloudinary: cloudinary, title: "style#tags"});
 	}, {max_results: 30});

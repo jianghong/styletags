@@ -4,7 +4,8 @@ $(document).ready(function () {
 	$container.imagesLoaded(function(){
 		$container.masonry({
 			itemSelector : '.image',
-			columnWidth : 30
+			columnWidth : 5,
+			isFitWidth: true
 		});
 	});
 });
