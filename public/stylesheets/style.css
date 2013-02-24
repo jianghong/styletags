@@ -2,10 +2,15 @@ body {
   padding: 50px;
   padding-top: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url("/images/black_lozenge_@2X.png");
 }
 
 a {
   color: #00B7FF;
+}
+
+label {
+	color: white;
 }
 
 .image {
