@@ -34,7 +34,7 @@ exports.load_by_tag = function(req, res) {
 exports.upload = function(req, res) {
 	var tags = req.body.tags;
 	// file was uploaded, handle uploading
-	if (req.body.image){
+	if (!req.body.urlimage) {
 		var imageStream = fs.createReadStream(req.files.image.path, { encoding: 'binary'}),
 			cloudStream = cloudinary.uploader.upload_stream(function (result) {
 				cloudinary.api.tags(function (result){
