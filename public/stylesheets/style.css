@@ -3,6 +3,7 @@ body {
   padding-top: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-image: url("/images/black_lozenge_@2X.png");
+  color: white;
 }
 
 a {
@@ -10,10 +11,6 @@ a {
 }
 
 label {
-	color: white;
-}
-
-p {
 	color: white;
 }
 
