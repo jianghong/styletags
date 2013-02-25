@@ -8,7 +8,12 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
-  , image = require('./routes/image');
+  , image = require('./routes/image')
+  , mongoose = require('mongoose')
+  , Tag = require('./models/Tag')
+  , Img = require('./models/Img');
+
+mongoose.connect('mongodb://localhost/tags');
 
 var app = express();
 
@@ -30,10 +35,11 @@ app.configure('development', function(){
 
 app.get('/', image.index);
 app.get('/users', user.list);
-app.get('/:tag', image.show);
+app.get('/search/:tag', image.show);
 app.post('/upload', image.upload);
 app.get('/load/:next', image.load);
 app.get('/load/:tag/:next', image.load_by_tag);
+app.get('/tags', Tag.getTags);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

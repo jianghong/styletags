@@ -9,14 +9,14 @@ html
     h1 
       a(href='/') style#tags
     form(action='/upload', method='post', enctype='multipart/form-data')
-      label * Upload an image (.jpg, .png, .gif) via url: 
+      label * Upload an image (.jpg, .png, .gif) from the internet: 
       input(type='url', placeholder='http://i.imgur.com/rG5C1a1h.jpg', name='urlimage')
       label * Or from your device: 
       input(type='file', name='image')
       br
       br
-      label * tags(at least one) are comma seperated:
-      input(required, placeholder='navy, blazer, cotton, uniqlo', type='text',
+      label * tags are comma seperated (I recommend first tagging the image as mens or womens):
+      input(required, placeholder='mens, navy, blazer, cotton, uniqlo', type='text',
         name='tags')
       input(type='submit', value='upload')
     div.row
@@ -25,7 +25,7 @@ html
         ul 
           - if (tags && tags.length) 
             - tags.forEach(function (tag) {
-              a(href='/' + tag)
+              a(href='/search/' + tag)
                 li= "#" + tag
             - })
       block content

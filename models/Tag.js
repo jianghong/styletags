@@ -1,36 +1,32 @@
 // model for mongoose
 // contains wrappers for interacting with the Tag model
+var mongoose = require('mongoose');
 
-// var mongoose = require('mongoose');
+var tagSchema = mongoose.Schema({
+	name: { type: String, require: true, trim: true, lowercase: true, unique: true },
+	uploads: { type: Number, default: 1 }
+});
 
-// mongoose.connect('mongodb://localhost/tags');
+var Tag = mongoose.model('Tag', tagSchema);
 
-// var tagSchema = mongoose.Schema({
-// 	name: { type: String, require: true, trim: true, lowercase: true, unique: true }
-// });
+exports.TagModel = Tag;
 
-// var Tag = mongoose.model('Tag', tagSchema);
+exports.getTags = function (req, res) {
+	Tag.find({}, function(error, data){
+		if (error) res.send("tags not found");
+		res.json(data);
+	});
+};
 
-// exports.TagModel = Tag;
-// exports.getTags = function (req, res) {
-// 	Tag.find({}, function(error, data){
-// 		if (error) res.send("tags not found");
-// 		res.json(data);
-// 	});
-// };
-
-// exports.addTag = function(req, res) {
-// 	var tagname = req.body.name;
-
-// 	if (tagname) {
-// 		var tag = new Tag({ name: tagname });
-
-// 		tag.save(function(error, data) {
-// 			if (error) res.send(error);
-// 			res.redirect("/tags");
-// 		});
-// 	} else {
-// 		res.send(404);
-// 	}
-
-// };
+exports.addTag = function(tags) {
+	var newTag;
+	var ta = tags.split(' ');
+	ta.forEach( function (tag) {
+		// check if tag already exists
+		Tag.findOneAndUpdate({name: tag}, {$inc: {uploads: 1}},
+		{upsert: true}, function (error, result) {
+			if (error) res.send(error);
+			console.log(result + "updated in DB");
+		});
+	});
+};

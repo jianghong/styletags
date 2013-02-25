@@ -1,12 +1,13 @@
 var mongoose = require('mongoose'),
 	Tag = require('../models/Tag'),
+	Img = require('../models/Img'),
 	cloudinary = require('cloudinary'),
 	fs = require('fs');
 
 cloudinary.config({
-	cloud_name: 'styletabs',
-	api_key: '144943367941172',
-	api_secret: 'Z2AkQAvabdBETVF7rN3ew4apmcI'
+	cloud_name: 'st-dev',
+	api_key: '888749731178135',
+	api_secret: 'EPjGKfUr1ejaHZHQcloZXjIiE5o'
 });
 
 
@@ -33,6 +34,7 @@ exports.load_by_tag = function(req, res) {
 
 exports.upload = function(req, res) {
 	var tags = req.body.tags;
+	console.log(tags);
 	// file was uploaded, handle uploading
 	if (!req.body.urlimage) {
 		var imageStream = fs.createReadStream(req.files.image.path, { encoding: 'binary'}),
@@ -40,6 +42,8 @@ exports.upload = function(req, res) {
 				cloudinary.api.tags(function (result){
 					TAGS = result.tags;
 				}, { max_results: 100 });
+				Img.addImage(result, tags);
+				Tag.addTag(tags);
 				res.redirect('/');
 			}, { tags: tags});
 
@@ -49,6 +53,8 @@ exports.upload = function(req, res) {
 			cloudinary.api.tags(function (result) {
 				TAGS = result.tags;
 			}, {max_results: 100});
+			Img.addImage(result, tags);
+			Tag.addTag(tags);
 			res.redirect('/');
 		}, {tags: tags});
 	}
