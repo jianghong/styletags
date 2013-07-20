@@ -6,6 +6,10 @@ By Jiang Tao Hong
 
 Share and draw inspiration from different fashion styles.
 
+## Demo
+
+  http://styletags.herokuapp.com/
+
 ## node dependencies
 
 * express
